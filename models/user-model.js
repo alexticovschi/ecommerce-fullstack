@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const uuid = requier('uuid/v1');
+const uuid = require('uuid/v1');
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: true
+      maxlength: 32
     },
     email: {
       type: String,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     },
     about: {
       type: String,
-      required: true
+      trim: true
     },
     salt: String,
     role: {
