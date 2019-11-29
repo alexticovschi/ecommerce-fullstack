@@ -58,3 +58,25 @@ exports.requireSignIn = expressJwt({
   secret: process.env.JWT_SECRET,
   userProperty: 'auth'
 });
+
+exports.isAuth = (req, res, next) => {
+  console.log('USER PROFILE:', req.profile);
+  // if there is a user, authorize it to access the resource
+  const user = req.profile && req.auth && req.profile._id == req.auth._id;
+
+  // prevent user from accessing resource
+  if (!user) {
+    return res.status(403).json({ error: 'Access denied! Admin resource.' });
+  }
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  // if the user is not admin, return an error message
+  if (req.profile.role === 0) {
+    return res.status(403).json({
+      error: 'Access Denied! You need admin permission to access this resource.'
+    });
+  }
+  next();
+};
