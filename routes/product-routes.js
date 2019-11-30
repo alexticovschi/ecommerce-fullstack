@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   createProduct,
   readProduct,
+  deleteProduct,
   getProductById
 } = require('../controllers/product-controller');
 const {
@@ -14,6 +15,13 @@ const {
 const { userById } = require('../controllers/user-controller');
 
 router.get('/product/:productId', readProduct);
+router.delete(
+  '/product/:productId/:userId',
+  requireSignIn,
+  isAuth,
+  isAdmin,
+  deleteProduct
+);
 router.post(
   '/product/create/:userId',
   requireSignIn,
