@@ -4,6 +4,25 @@ const fs = require('fs');
 const Product = require('../models/product-model');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
+exports.getProductById = (req, res, next, id) => {
+  Product.findById(id).exec((error, product) => {
+    if (error || !product) {
+      return res.status(400).json({
+        error: 'Product not found'
+      });
+    }
+    // make the found product available in the request
+    // object with the name product
+    req.product = product;
+    next();
+  });
+};
+
+exports.readProduct = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
 exports.createProduct = (req, res) => {
   const form = new formidable.IncomingForm();
   form.keepExtensions = true;

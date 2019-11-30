@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { createProduct } = require('../controllers/product-controller');
+const {
+  createProduct,
+  readProduct,
+  getProductById
+} = require('../controllers/product-controller');
 const {
   requireSignIn,
   isAuth,
@@ -9,6 +13,7 @@ const {
 } = require('../controllers/auth-controller');
 const { userById } = require('../controllers/user-controller');
 
+router.get('/product/:productId', readProduct);
 router.post(
   '/product/create/:userId',
   requireSignIn,
@@ -18,5 +23,6 @@ router.post(
 );
 
 router.param('userId', userById);
+router.param('productId', getProductById);
 
 module.exports = router;
