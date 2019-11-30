@@ -14,11 +14,34 @@ exports.createProduct = (req, res) => {
       });
     }
 
+    // check for all fields
+    const { name, description, price, category, quantity, shipping } = fields;
+
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !quantity ||
+      !shipping
+    ) {
+      return res.status(400).json({
+        error: 'All fields are required'
+      });
+    }
     const product = new Product(fields);
 
     console.log('FIELDS:', fields);
 
+    // 1KB = 1000
+    // 1MB = 1000000
     if (files.photo) {
+      //  check if the image is less than 1MB
+      if (files.photo.size > 1000000) {
+        return res.status(400).json({
+          error: 'Image should be less than 1MB in size'
+        });
+      }
       product.photo.data = fs.readFileSync(files.photo.path);
       product.photo.contentType = files.photo.type;
     }
