@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const {
+  getProductById,
   createProduct,
   readProduct,
-  deleteProduct,
-  getProductById
+  updateProduct,
+  deleteProduct
 } = require('../controllers/product-controller');
 const {
   requireSignIn,
@@ -15,6 +16,13 @@ const {
 const { userById } = require('../controllers/user-controller');
 
 router.get('/product/:productId', readProduct);
+router.post(
+  '/product/create/:userId',
+  requireSignIn,
+  isAuth,
+  isAdmin,
+  createProduct
+);
 router.delete(
   '/product/:productId/:userId',
   requireSignIn,
@@ -22,12 +30,12 @@ router.delete(
   isAdmin,
   deleteProduct
 );
-router.post(
-  '/product/create/:userId',
+router.put(
+  '/product/:productId/:userId',
   requireSignIn,
   isAuth,
   isAdmin,
-  createProduct
+  updateProduct
 );
 
 router.param('userId', userById);
