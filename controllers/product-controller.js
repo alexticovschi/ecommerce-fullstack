@@ -143,3 +143,28 @@ exports.deleteProduct = (req, res) => {
     res.json({ message: 'Product deleted successfully' });
   });
 };
+
+/*** urls with query params ***/
+/* by product arival date  = ./products?sortBy=createdAt&order=desc&limit=9 */
+/* by products sold        = ./products?sortBy=sold&order=desc&limit=9 */
+/* all products are returned if no params are sent */
+
+exports.getAllProducts = (req, res) => {
+  const order = req.query.order ? req.query.order : 'asc';
+  const sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+  const limit = req.query.limit ? parseInt(req.query.limit) : 9;
+
+  Product.find()
+    .select('-photo')
+    .populate('category')
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((error, data) => {
+      if (error) {
+        return res.status(400).json({
+          error: 'Products not found'
+        });
+      }
+      res.json(data);
+    });
+};

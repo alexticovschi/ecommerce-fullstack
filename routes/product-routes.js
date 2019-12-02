@@ -6,7 +6,8 @@ const {
   createProduct,
   readProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getAllProducts
 } = require('../controllers/product-controller');
 const {
   requireSignIn,
@@ -37,6 +38,7 @@ router.put(
   isAdmin,
   updateProduct
 );
+router.get('/products', getAllProducts);
 
 router.param('userId', userById);
 router.param('productId', getProductById);
