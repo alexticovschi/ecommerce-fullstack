@@ -168,3 +168,23 @@ exports.getAllProducts = (req, res) => {
       res.json(data);
     });
 };
+
+/* find products based on category name */
+
+exports.getRelatedProducts = (req, res) => {
+  const limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  // find products based on the category that matches req product category
+  // and filter out the current product
+  Product.find({ _id: { $ne: req.product }, category: req.product.category })
+    .limit(limit)
+    .populate('category', '_id name')
+    .exec((error, products) => {
+      if (error) {
+        return res.status(400).json({
+          error: 'Related products not found'
+        });
+      }
+      res.json(products);
+    });
+};
