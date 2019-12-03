@@ -188,3 +188,14 @@ exports.getRelatedProducts = (req, res) => {
       res.json(products);
     });
 };
+
+exports.getAllCategories = (req, res) => {
+  Product.distinct('category', {}, (error, categories) => {
+    if (error) {
+      return res.status(400).json({
+        error: 'Categories not found'
+      });
+    }
+    res.json(categories);
+  });
+};

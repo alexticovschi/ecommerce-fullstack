@@ -8,7 +8,8 @@ const {
   updateProduct,
   deleteProduct,
   getAllProducts,
-  getRelatedProducts
+  getRelatedProducts,
+  getAllCategories
 } = require('../controllers/product-controller');
 const {
   requireSignIn,
@@ -40,6 +41,7 @@ router.put(
   updateProduct
 );
 router.get('/products', getAllProducts);
+router.get('/products/categories', getAllCategories);
 router.get('/products/related/:productId', getRelatedProducts);
 
 router.param('userId', userById);
