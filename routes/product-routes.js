@@ -10,7 +10,8 @@ const {
   getAllProducts,
   getRelatedProducts,
   getAllCategories,
-  getProductsBySearch
+  getProductsBySearch,
+  getProductPhoto
 } = require('../controllers/product-controller');
 const {
   requireSignIn,
@@ -45,6 +46,7 @@ router.get('/products', getAllProducts);
 router.get('/products/categories', getAllCategories);
 router.get('/products/related/:productId', getRelatedProducts);
 router.post('/products/search', getProductsBySearch);
+router.get('/product/photo/:productId', getProductPhoto);
 
 router.param('userId', userById);
 router.param('productId', getProductById);
