@@ -47,10 +47,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Bitter', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: bold;
   margin-bottom: 1.25rem;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   letter-spacing: var(--mainSpacing);
 }
 
@@ -65,4 +65,10 @@ main {
   min-height: 93vh;
   display: flex;
   flex-direction: column;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8,
+      [col-start] minmax(min-content, 15rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 }
