@@ -12,3 +12,16 @@ export const signUpUser = user => {
     .then(response => response.json())
     .catch(error => console.error(error));
 };
+
+export const signInUser = user => {
+  return fetch(`${API}/signin`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => response.json())
+    .catch(error => console.error(error));
+};

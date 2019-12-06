@@ -1,30 +1,21 @@
-.signup-section {
+.signin-section {
   margin: 13rem 2rem;
 
-  .signup-title {
+  .signin-title {
     text-align: center;
   }
 
   .form-messages {
     margin-top: 2rem;
-
-    .signin {
-      color: #007bff;
-      text-transform: uppercase;
-    }
   }
 
-  .signup-error {
+  .signin-error {
     text-align: center;
     color: red;
   }
-
-  .signup-success {
-    text-align: center;
-  }
 }
 
-.signup-form {
+.signin-form {
   grid-column: center-start / center-end;
   margin: auto;
 
@@ -68,5 +59,4 @@
     outline: 0;
     cursor: pointer;
   }
-
 }

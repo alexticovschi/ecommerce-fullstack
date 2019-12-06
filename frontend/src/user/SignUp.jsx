@@ -21,6 +21,7 @@ const SignUp = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+    setValues({ ...values, error: false });
     signUpUser({ name, email, password }).then(data => {
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });
@@ -52,11 +53,6 @@ const SignUp = () => {
       </p>
     </div>
   );
-
-  const isError = error => {
-    console.log(error.includes('Name'));
-    return error.includes('Name');
-  };
 
   return (
     <section className='signup-section'>
