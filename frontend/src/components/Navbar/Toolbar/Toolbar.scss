@@ -1,0 +1,137 @@
+.toolbar {
+  position: fixed;
+  padding: 0 5px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--mainWhite);
+
+  height: 66px;
+  z-index: 1000;
+
+  .toolbar-wrapper {
+    max-width: 120rem;
+    margin: auto;
+    height: 100%;
+  }
+
+  .toolbar__navigation {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+
+
+  .toolbar__logo {
+    a {
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: "Bitter";
+      font-weight: bold;
+      color: var(--primaryColor);
+      padding: 6px;
+      letter-spacing: 2.3px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar_navigation-items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    li {
+      padding-left: 3rem;
+      font-size: 2rem;
+      display: flex;
+      align-self: center;
+    }
+
+    a {
+      color: var(--primaryColor);
+      position: relative;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-family: 'Bitter', sans-serif;
+      font-weight: 800;
+      text-decoration: none;
+      transition: .3s;
+
+      &::before {
+        content: "";
+        display: block;
+        height: 2px;
+        background: var(--primaryColor);
+        position: absolute;
+        top: -6px;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: transform ease-in-out 250ms;
+      }
+
+      &:hover::before {
+        transform: scale(1, 1);
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .toolbar-wrapper {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 775px) {
+  .toolbar {
+    height: 66px;
+
+    .toolbar_navigation-items {
+      display: none;
+    }
+
+
+    .toolbar-wrapper {
+      padding: 0 15px;
+    }
+
+
+    .toolbar__logo {
+      a {
+        width: 100px;
+        font-size: 1.5rem !important;
+        width: 100%;
+
+        @media (max-width: 775px) {
+          span {
+            font-size: 3.2rem;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 769px) {
+  .toolbar__toggle-button {
+    display: none;
+  }
+
+  .toolbar__logo {
+    margin-left: 0;
+  }
+}
