@@ -4,6 +4,24 @@
   .signup-title {
     text-align: center;
   }
+
+  .form-messages {
+    margin-top: 2rem;
+
+    .signin {
+      color: #007bff;
+      text-transform: uppercase;
+    }
+  }
+
+  .signup-error {
+    text-align: center;
+    color: red;
+  }
+
+  .signup-success {
+    text-align: center;
+  }
 }
 
 .signup-form {
