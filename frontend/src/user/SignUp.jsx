@@ -12,8 +12,29 @@ const SignUp = () => {
     success: false
   });
 
+  const { name, email, password } = values;
+
   const handleInputChange = name => event => {
     setValues({ ...values, error: false, [name]: event.target.value });
+  };
+
+  const signUpUser = user => {
+    // console.log(user);
+    return fetch(`${API}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+      .catch(error => console.error(error));
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    signUpUser({ name, email, password });
   };
 
   return (
@@ -23,20 +44,18 @@ const SignUp = () => {
       <div className='container'>
         <form className='signup-form'>
           <p>
-            <label for='name'>Name</label>
+            <label htmlFor='name'>Name</label>
             <input onChange={handleInputChange('name')} type='text' />
           </p>
           <p>
-            <label for='email'>Email</label>
+            <label htmlFor='email'>Email</label>
             <input onChange={handleInputChange('email')} type='email' />
           </p>
           <p>
-            <label for='password'>Password</label>
+            <label htmlFor='password'>Password</label>
             <input onChange={handleInputChange('password')} type='password' />
           </p>
-          <p>
-            <button>Submit</button>
-          </p>
+          <button onClick={handleSubmit}>Submit</button>
         </form>
       </div>
       <p>{JSON.stringify(values)}</p>
