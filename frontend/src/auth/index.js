@@ -33,3 +33,15 @@ export const authenticateUser = (data, callback) => {
 
   callback();
 };
+
+export const signOutUser = callback => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt');
+    callback();
+    return fetch(`${API}/signout`, {
+      method: 'GET'
+    })
+      .then(response => console.log('signout', response))
+      .catch(error => console.error(error));
+  }
+};

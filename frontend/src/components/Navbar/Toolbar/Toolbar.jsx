@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import { signOutUser } from '../../../auth';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Toolbar.scss';
 
-const Toolbar = ({ isOpen, drawerClickHandler }) => (
+const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
   <header className='toolbar'>
     <div className='toolbar-wrapper'>
       <nav className='toolbar__navigation'>
@@ -25,6 +25,18 @@ const Toolbar = ({ isOpen, drawerClickHandler }) => (
             <li>
               <Link to='/signup'>Sign Up</Link>
             </li>
+            <li>
+              <Link
+                to=''
+                onClick={() =>
+                  signOutUser(() => {
+                    history.push('/');
+                  })
+                }
+              >
+                Sign Out
+              </Link>
+            </li>
           </ul>
         </div>
         <div className='toolbar__toggle-button'>
@@ -35,4 +47,4 @@ const Toolbar = ({ isOpen, drawerClickHandler }) => (
   </header>
 );
 
-export default Toolbar;
+export default withRouter(Toolbar);
