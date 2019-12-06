@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { signInUser } from '../auth';
+import { signInUser, authenticateUser } from '../auth';
 
 import './signin.scss';
 
@@ -26,9 +26,11 @@ const SignIn = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        setValues({
-          ...values,
-          redirect: true
+        authenticateUser(data, () => {
+          setValues({
+            ...values,
+            redirect: true
+          });
         });
       }
     });

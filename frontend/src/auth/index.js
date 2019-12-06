@@ -25,3 +25,11 @@ export const signInUser = user => {
     .then(response => response.json())
     .catch(error => console.error(error));
 };
+
+export const authenticateUser = (data, callback) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('jwt', JSON.stringify(data));
+  }
+
+  callback();
+};
