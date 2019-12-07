@@ -31,18 +31,23 @@ const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
             )}
 
             {isAuthenticated() && (
-              <li>
-                <Link
-                  to=''
-                  onClick={() =>
-                    signOutUser(() => {
-                      history.push('/');
-                    })
-                  }
-                >
-                  Sign Out
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link
+                    to=''
+                    onClick={() =>
+                      signOutUser(() => {
+                        history.push('/');
+                      })
+                    }
+                  >
+                    Sign Out
+                  </Link>
+                </li>
+                <li>
+                  <Link to='/account'>My Account</Link>
+                </li>
+              </>
             )}
           </ul>
         </div>
