@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { signOutUser } from '../../../auth';
+import { signOutUser, isAuthenticated } from '../../../auth';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Toolbar.scss';
 
@@ -19,24 +19,31 @@ const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
             <li>
               <Link to='/'>Home</Link>
             </li>
-            <li>
-              <Link to='/signin'>Sign In</Link>
-            </li>
-            <li>
-              <Link to='/signup'>Sign Up</Link>
-            </li>
-            <li>
-              <Link
-                to=''
-                onClick={() =>
-                  signOutUser(() => {
-                    history.push('/');
-                  })
-                }
-              >
-                Sign Out
-              </Link>
-            </li>
+            {!isAuthenticated() && (
+              <>
+                <li>
+                  <Link to='/signin'>Sign In</Link>
+                </li>
+                <li>
+                  <Link to='/signup'>Sign Up</Link>
+                </li>
+              </>
+            )}
+
+            {isAuthenticated() && (
+              <li>
+                <Link
+                  to=''
+                  onClick={() =>
+                    signOutUser(() => {
+                      history.push('/');
+                    })
+                  }
+                >
+                  Sign Out
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <div className='toolbar__toggle-button'>
