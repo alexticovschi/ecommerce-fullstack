@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { signInUser, authenticateUser } from '../auth';
+import { signInUser, authenticateUser, isAuthenticated } from '../auth';
 
 import './signin.scss';
 
@@ -12,7 +12,7 @@ const SignIn = () => {
     loading: false,
     redirect: false
   });
-
+  const { user } = isAuthenticated();
   const { email, password, loading, error, redirect } = values;
 
   const handleInputChange = name => event => {
@@ -51,7 +51,10 @@ const SignIn = () => {
 
   const redirectUser = () => {
     if (redirect) {
-      return <Redirect to='/' />;
+      if (user && user.role === 1) {
+        return <Redirect to='/admin/dashboard' />;
+      }
+      return <Redirect to='/user/account' />;
     }
   };
 

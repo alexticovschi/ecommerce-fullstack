@@ -1,0 +1,51 @@
+.account-section {
+  margin: 5rem 0;
+}
+
+.account-content {
+  grid-column: center-start / center-end;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: .1rem solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+
+  &__title {
+    padding: 2rem 1.25rem;
+    display: flex;
+    align-content: flex-start;
+  }
+
+  &__list-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  &__list-group-item {
+    font-size: 1.5rem;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .125);
+
+    span {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.user-info {
+  margin-bottom: 4rem;
+}
