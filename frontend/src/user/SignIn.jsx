@@ -56,6 +56,10 @@ const SignIn = () => {
       }
       return <Redirect to='/user/account' />;
     }
+
+    if (isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
   };
 
   return (

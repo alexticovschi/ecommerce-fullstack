@@ -30,24 +30,31 @@ const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
               </>
             )}
 
+            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+              <li>
+                <Link to='/admin/dashboard'>Dashboard</Link>
+              </li>
+            )}
+
+            {isAuthenticated() && isAuthenticated().user.role === 0 && (
+              <li>
+                <Link to='/user/account'>My Account</Link>
+              </li>
+            )}
+
             {isAuthenticated() && (
-              <>
-                <li>
-                  <Link
-                    to=''
-                    onClick={() =>
-                      signOutUser(() => {
-                        history.push('/');
-                      })
-                    }
-                  >
-                    Sign Out
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/account'>My Account</Link>
-                </li>
-              </>
+              <li>
+                <Link
+                  to=''
+                  onClick={() =>
+                    signOutUser(() => {
+                      history.push('/');
+                    })
+                  }
+                >
+                  Sign Out
+                </Link>
+              </li>
             )}
           </ul>
         </div>

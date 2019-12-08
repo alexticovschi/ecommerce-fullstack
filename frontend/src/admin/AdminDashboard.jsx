@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
 
-import './account.scss';
+import './adminDashboard.scss';
 
-const Account = () => {
+const AdminDashboard = () => {
   const {
     user: { _id, name, email, role }
   } = isAuthenticated();
@@ -14,19 +14,19 @@ const Account = () => {
       <div className='container'>
         <div className='account-wrapper'>
           <div className='account-links'>
-            <h3 className='account-links__title'>User Links</h3>
+            <h3 className='account-links__title'>Admin Links</h3>
             <ul className='account-links__list-group'>
               <li className='account-links__list-group-item'>
-                <Link to='/cart'>My Cart</Link>
+                <Link to='/create/category'>Create Category</Link>
               </li>
               <li className='account-links__list-group-item'>
-                <Link to='/profile/update'>Update Profile</Link>
+                <Link to='/create/product'>Create Product</Link>
               </li>
             </ul>
           </div>
           <div className='account-content'>
-            <div className='account-content__user-info'>
-              <h3 className='account-content__title'>User Information</h3>
+            <div className='account-content__admin-info'>
+              <h3 className='account-content__title'>Admin Information</h3>
 
               <ul className='account-content__list-group'>
                 <li className='account-content__list-group-item'>
@@ -40,14 +40,6 @@ const Account = () => {
                 </li>
               </ul>
             </div>
-
-            <div className='account-content__purchase-history'>
-              <h3 className='account-content__title'>Purchase History</h3>
-
-              <ul className='account-content__list-group'>
-                <li className='account-content__list-group-item'>History </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -55,4 +47,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AdminDashboard;
