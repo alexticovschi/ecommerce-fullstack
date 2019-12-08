@@ -8,6 +8,7 @@ import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Account from './user/Account';
 import AdminDashboard from './admin/AdminDashboard';
+import AddCategory from './admin/AddCategory/AddCategory';
 
 const routes = () => {
   return (
@@ -23,6 +24,7 @@ const routes = () => {
             exact
             component={AdminDashboard}
           />
+          <AdminRoute path='/create/category' exact component={AddCategory} />
         </Layout>
       </Switch>
     </BrowserRouter>
