@@ -7,7 +7,7 @@ import Layout from './components/Layout/Layout';
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Account from './user/Account';
-import AdminDashboard from './admin/AdminDashboard';
+import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import AddCategory from './admin/AddCategory/AddCategory';
 
 const routes = () => {

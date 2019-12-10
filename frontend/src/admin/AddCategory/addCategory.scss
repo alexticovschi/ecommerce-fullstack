@@ -6,10 +6,23 @@
     margin-bottom: 2rem;
   }
 
+  .category-error {
+    color: red;
+    font-size: 1.6rem;
+  }
+
+  .category-success {
+    color: rgb(18, 182, 95);
+    font-size: 1.6rem;
+  }
+
   .form-messages {
     margin-top: 2rem;
+    text-align: center;
   }
 }
+
+
 
 .category-form {
   grid-column: center-start / center-end;

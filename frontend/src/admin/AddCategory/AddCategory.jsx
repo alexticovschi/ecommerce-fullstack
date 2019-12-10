@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { isAuthenticated } from '../../auth';
+import { createCategory } from '../adminApi';
 import './addCategory.scss';
 
 const AddCategory = () => {
@@ -13,15 +14,36 @@ const AddCategory = () => {
   const handleInputChange = event => {
     setError('');
     setName(event.target.value);
-    console.log(name);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
     setError('');
-    setSuccess('false');
+    setSuccess(false);
 
     // make request to the api to create the category
+    createCategory(user._id, token, { name }).then(data => {
+      // console.log(data);
+      if (data.error) {
+        setError(true);
+      } else {
+        setError('');
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 2000);
+      }
+    });
+  };
+
+  const showError = () => {
+    if (error) {
+      return <h3 className='category-error'>Category name should be unique</h3>;
+    }
+  };
+
+  const showSuccess = () => {
+    if (success) {
+      return <h3 className='category-success'>Category {name} was created</h3>;
+    }
   };
 
   return (
@@ -36,10 +58,16 @@ const AddCategory = () => {
               type='text'
               value={name}
               autoFocus
+              required
             />
           </p>
-          <button>Add Category</button>
+          <button type='submit'>Add Category</button>
         </form>
+      </div>
+
+      <div className='form-messages'>
+        {showSuccess()}
+        {showError()}
       </div>
     </section>
   );
