@@ -1,0 +1,67 @@
+.product-section {
+  margin: 13rem 2rem;
+
+  .product-title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+
+  .form-messages {
+    margin-top: 2rem;
+    text-align: center;
+  }
+}
+
+
+
+.product-form {
+  grid-column: center-start / center-end;
+  margin: auto;
+
+  input:focus {
+    border: .1rem solid var(--primaryColor);
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    border: 1px solid rgb(133, 133, 133);
+  }
+
+  textarea {
+    display: block;
+  }
+
+  form {
+    label {
+      display: block;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  input {
+    padding: .7em;
+  }
+
+  button {
+    background: #BF0000;
+    color: var(--mainWhite);
+    width: 100%;
+    padding: 1em;
+    border: 0;
+    border-radius: .3rem;
+    transition: .3s;
+  }
+
+  button:hover,
+  button:focus {
+    background: rgb(206, 29, 29);
+    outline: 0;
+    cursor: pointer;
+  }
+}
