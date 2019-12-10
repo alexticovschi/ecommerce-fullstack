@@ -19,6 +19,20 @@ export const addProduct = async (userId, token, product) => {
   }
 };
 
+export const getAllCategories = async () => {
+  const response = await fetch(`${API}/categories`, {
+    method: 'GET'
+  });
+
+  const categories = await response.json();
+
+  try {
+    if (categories) return categories;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const createCategory = async (userId, token, category) => {
   const response = await fetch(`${API}/category/create/${userId}`, {
     method: 'POST',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../../auth';
-import { addProduct } from '../adminApi';
+import { addProduct, getAllCategories } from '../adminApi';
 
 import './addProduct.scss';
 
@@ -20,7 +20,7 @@ const AddProduct = () => {
     photo: '',
     loading: false,
     error: '',
-    createProduct: ' ',
+    createdProduct: '',
     redirect: false,
     formData: ''
   });
@@ -36,23 +36,32 @@ const AddProduct = () => {
     quantity,
     loading,
     error,
-    createProduct,
+    createdProduct,
     redirect,
     formData
   } = values;
 
-  useEffect(() => setValues({ ...values, formData: new FormData() }), []);
+  useEffect(() => {
+    const init = async () => {
+      const data = await getAllCategories();
+      if (data) {
+        setValues({ ...values, categories: data, formData: new FormData() });
+      } else {
+        setValues({ ...values, error: data.error });
+      }
+    };
+    init();
+  }, []);
 
   const handleChange = name => event => {
     const value = name === 'photo' ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value });
-    // console.log(values);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    console.log(createProduct);
+    console.log(createdProduct);
 
     setValues({ ...values, error: '', loading: true });
 
@@ -69,12 +78,27 @@ const AddProduct = () => {
           price: '',
           quantity: '',
           loading: false,
-          createProduct: data.name
+          createdProduct: data.name
         });
       }
     });
   };
 
+  const showError = () => {
+    if (error) {
+      return <h3 className='product-error'>{error}</h3>;
+    }
+  };
+
+  const showSuccess = () => {
+    if (createdProduct) {
+      return (
+        <h3 className='product-success'>
+          Product {createdProduct} was created
+        </h3>
+      );
+    }
+  };
   return (
     <section className='product-section'>
       <h2 className='product-title'>Add New Product</h2>
@@ -121,13 +145,19 @@ const AddProduct = () => {
           <p>
             <label>Category</label>
             <select onChange={handleChange('category')}>
-              <option value='5decf21179d36d381cbb7f00'>Philosophy</option>
-              <option value='5decf21179d36d381cbb7f00'>Science</option>
+              <option>Select Category</option>
+              {categories &&
+                categories.map(category => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
             </select>
           </p>
           <p>
             <label>Shipping</label>
             <select onChange={handleChange('shipping')}>
+              <option>Select</option>
               <option value='0'>No</option>
               <option value='1'>Yes</option>
             </select>
@@ -145,7 +175,10 @@ const AddProduct = () => {
         </form>
       </div>
 
-      <div className='form-messages'></div>
+      <div className='form-messages'>
+        {showSuccess()}
+        {showError()}
+      </div>
     </section>
   );
 };
