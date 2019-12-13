@@ -1,0 +1,24 @@
+.home-section {
+  grid-column: center-start / center-end;
+  padding: 10rem 0;
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background-color: rgb(182, 42, 42);
+    color: #fff;
+    padding: 1rem 1rem;
+  }
+
+  &__best-sellers {
+    margin-bottom: 10rem;
+  }
+
+
+  &__best-sellers,
+  &__new-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-gap: 3rem;
+  }
+}
