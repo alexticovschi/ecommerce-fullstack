@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './checkbox.scss';
 
-const Checkbox = ({ categories }) => {
+const Checkbox = ({ categories, handleFilters }) => {
   const [checked, setChecked] = useState([]);
 
   const toggleCheckbox = catId => () => {
@@ -14,9 +14,8 @@ const Checkbox = ({ categories }) => {
     }
 
     setChecked(categoryIdsArray);
+    handleFilters(categoryIdsArray);
   };
-
-  console.table(checked);
 
   return categories.map(category => (
     <li key={category._id}>

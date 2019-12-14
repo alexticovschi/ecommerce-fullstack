@@ -5,6 +5,9 @@ import Checkbox from '../Checkbox/Checkbox';
 import './shop.scss';
 
 const Shop = () => {
+  const [myFilters, setMyFilters] = useState({
+    filters: { category: [], price: [] }
+  });
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
 
@@ -24,6 +27,13 @@ const Shop = () => {
     init();
   }, []);
 
+  const handleFilters = (filters, filterBy) => {
+    const newFilters = { ...myFilters };
+    newFilters.filters[filterBy] = filters;
+    setMyFilters(newFilters);
+    console.table(myFilters);
+  };
+
   return (
     <div className='container'>
       <div className='shop'>
@@ -31,7 +41,10 @@ const Shop = () => {
           <h2 className='title'>Filter by</h2>
           <h3>Categories</h3>
           <ul>
-            <Checkbox categories={categories} />
+            <Checkbox
+              categories={categories}
+              handleFilters={filters => handleFilters(filters, 'category')}
+            />
           </ul>
         </aside>
         <section className='shop-section'>shop section</section>
