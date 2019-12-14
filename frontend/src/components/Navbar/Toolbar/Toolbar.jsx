@@ -19,6 +19,9 @@ const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
             <li>
               <Link to='/'>Home</Link>
             </li>
+            <li>
+              <Link to='/shop'>Shop</Link>
+            </li>
             {!isAuthenticated() && (
               <>
                 <li>

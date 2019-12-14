@@ -16,3 +16,17 @@ export const getProducts = async sortBy => {
     console.error(error);
   }
 };
+
+export const getAllCategories = async () => {
+  const response = await fetch(`${API}/categories`, {
+    method: 'GET'
+  });
+
+  const categories = await response.json();
+
+  try {
+    if (categories) return categories;
+  } catch (error) {
+    console.error(error);
+  }
+};

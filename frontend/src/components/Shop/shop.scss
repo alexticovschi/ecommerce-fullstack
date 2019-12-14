@@ -1,0 +1,21 @@
+.shop {
+  grid-column: center-start / center-end;
+  padding: 10rem 0;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sidebar {
+  grid-column: 1 / span 1;
+
+  ul li {
+    list-style-type: none;
+    font-size: 1.6rem;
+  }
+}
+
+.shop-section {
+  grid-column: 2 / span 2;
+}
