@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllCategories } from '../../api';
+import Checkbox from '../Checkbox/Checkbox';
 
 import './shop.scss';
 
@@ -23,14 +24,14 @@ const Shop = () => {
     init();
   }, []);
 
-  console.log(categories);
   return (
     <div className='container'>
       <div className='shop'>
         <aside className='sidebar'>
+          <h2 className='title'>Filter by</h2>
+          <h3>Categories</h3>
           <ul>
-            {categories &&
-              categories.map(cat => <li key={cat._id}>{cat.name}</li>)}
+            <Checkbox categories={categories} />
           </ul>
         </aside>
         <section className='shop-section'>shop section</section>
