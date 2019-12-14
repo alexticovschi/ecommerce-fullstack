@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllCategories } from '../../api';
 import Checkbox from '../Checkbox/Checkbox';
+import RadioBox from '../RadioBox/RadioBox';
 
 import './shop.scss';
 
@@ -39,13 +40,24 @@ const Shop = () => {
       <div className='shop'>
         <aside className='sidebar'>
           <h2 className='title'>Filter by</h2>
-          <h3>Categories</h3>
-          <ul>
-            <Checkbox
-              categories={categories}
-              handleFilters={filters => handleFilters(filters, 'category')}
-            />
-          </ul>
+          <div className='categories'>
+            <h3>Categories</h3>
+            <ul>
+              <Checkbox
+                categories={categories}
+                handleFilters={filters => handleFilters(filters, 'category')}
+              />
+            </ul>
+          </div>
+
+          <div className='prices'>
+            <h3>Prices</h3>
+            <div>
+              <RadioBox
+                handleFilters={filters => handleFilters(filters, 'prices')}
+              />
+            </div>
+          </div>
         </aside>
         <section className='shop-section'>shop section</section>
       </div>
