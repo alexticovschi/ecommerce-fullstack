@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllCategories } from '../../api';
 import Checkbox from '../Checkbox/Checkbox';
 import RadioBox from '../RadioBox/RadioBox';
-
+import { prices } from '../../fixedPrices';
 import './shop.scss';
 
 const Shop = () => {
@@ -28,11 +28,36 @@ const Shop = () => {
     init();
   }, []);
 
+  // loop through prices and return the price range array ...
+  // that has an id equal to input value
+  const handlePrice = value => {
+    const pricesArray = prices;
+    let priceRange = [];
+
+    for (let key in pricesArray) {
+      if (pricesArray[key]._id === parseInt(value)) {
+        priceRange = pricesArray[key].array;
+      }
+    }
+
+    return priceRange;
+  };
+
   const handleFilters = (filters, filterBy) => {
     const newFilters = { ...myFilters };
     newFilters.filters[filterBy] = filters;
+
+    // 1# check if we filter by price
+    if (filterBy === 'price') {
+      // 2# store the return value of handlePrice function
+      const priceRange = handlePrice(filters);
+
+      // 3# add price range to newFilters array
+      newFilters.filters[filterBy] = priceRange;
+    }
+
+    // set state with new filter values
     setMyFilters(newFilters);
-    console.table(myFilters);
   };
 
   return (
@@ -54,7 +79,8 @@ const Shop = () => {
             <h3>Prices</h3>
             <div>
               <RadioBox
-                handleFilters={filters => handleFilters(filters, 'prices')}
+                prices={prices}
+                handleFilters={filters => handleFilters(filters, 'price')}
               />
             </div>
           </div>
