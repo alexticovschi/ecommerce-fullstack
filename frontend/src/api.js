@@ -30,3 +30,25 @@ export const getAllCategories = async () => {
     console.error(error);
   }
 };
+
+// make a POST request to get data based on skip, limit and filters
+export const getFilteredProducts = async (skip, limit, filters = {}) => {
+  const response = await fetch(`${API}/products/search`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ skip, limit, filters })
+  });
+
+  const data = await response.json();
+
+  try {
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

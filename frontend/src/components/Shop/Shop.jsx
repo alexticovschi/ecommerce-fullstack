@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getAllCategories } from '../../api';
+import { getAllCategories, getFilteredProducts } from '../../api';
 import Checkbox from '../Checkbox/Checkbox';
 import RadioBox from '../RadioBox/RadioBox';
+import Card from '../Card/Card';
+
 import { prices } from '../../fixedPrices';
 import './shop.scss';
 
@@ -11,6 +13,9 @@ const Shop = () => {
   });
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
+  const [limit, setLimit] = useState(12);
+  const [skip, setSkip] = useState(0);
+  const [filteredData, setFilteredData] = useState([]);
 
   const init = async () => {
     const data = await getAllCategories();
@@ -26,6 +31,7 @@ const Shop = () => {
 
   useEffect(() => {
     init();
+    loadFilteredData(skip, limit, myFilters.filters);
   }, []);
 
   // loop through prices and return the price range array ...
@@ -43,6 +49,20 @@ const Shop = () => {
     return priceRange;
   };
 
+  const loadFilteredData = async newFilters => {
+    const response = await getFilteredProducts(skip, limit, newFilters);
+    const data = response.data;
+
+    try {
+      if (data) {
+        setFilteredData(data);
+      }
+    } catch (error) {
+      setError(error);
+      console.error(error);
+    }
+  };
+
   const handleFilters = (filters, filterBy) => {
     const newFilters = { ...myFilters };
     newFilters.filters[filterBy] = filters;
@@ -56,6 +76,7 @@ const Shop = () => {
       newFilters.filters[filterBy] = priceRange;
     }
 
+    loadFilteredData(myFilters.filters);
     // set state with new filter values
     setMyFilters(newFilters);
   };
@@ -85,7 +106,17 @@ const Shop = () => {
             </div>
           </div>
         </aside>
-        <section className='shop-section'>shop section</section>
+        <section className='shop-section'>
+          {filteredData &&
+            filteredData.map(product => (
+              <Card
+                id={product._id}
+                key={product._id}
+                productName={product.name}
+                price={product.price}
+              />
+            ))}
+        </section>
       </div>
     </div>
   );
