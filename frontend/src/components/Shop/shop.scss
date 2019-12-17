@@ -6,10 +6,33 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 3rem;
+
+
+  &__btn {
+    grid-column: 1 / -1;
+    background-color: #b62a2a;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 1.4rem 0;
+    height: 5rem;
+    border: none;
+    border-radius: .3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    @media (max-width: 420px) {
+      font-size: 1.2rem !important;
+      padding: 1.3rem !important;
+    }
+  }
 }
 
 .sidebar {
   grid-column: 1 / span 1;
+  border-right: .1rem solid rgb(177, 177, 177);
+  padding-right: 3rem;
 
   .title {
     color: #333333;

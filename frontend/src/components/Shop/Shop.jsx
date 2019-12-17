@@ -13,8 +13,9 @@ const Shop = () => {
   });
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
+  const [size, setSize] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
 
   const init = async () => {
@@ -51,11 +52,12 @@ const Shop = () => {
 
   const loadFilteredData = async newFilters => {
     const response = await getFilteredProducts(skip, limit, newFilters);
-    const data = response.data;
 
     try {
-      if (data) {
-        setFilteredData(data);
+      if (response) {
+        setFilteredData(response.data);
+        setSize(response.size);
+        setSkip(0);
       }
     } catch (error) {
       setError(error);
@@ -81,6 +83,25 @@ const Shop = () => {
     setMyFilters(newFilters);
   };
 
+  const loadMore = async () => {
+    let toSkip = skip + limit;
+    const response = await getFilteredProducts(
+      toSkip,
+      limit,
+      myFilters.filters
+    );
+
+    try {
+      if (response) {
+        setFilteredData([...filteredData, ...response.data]);
+        setSize(response.size);
+        setSkip(toSkip);
+      }
+    } catch (error) {
+      setError(error);
+      console.error(error);
+    }
+  };
   return (
     <div className='container'>
       <div className='shop'>
@@ -116,6 +137,11 @@ const Shop = () => {
                 price={product.price}
               />
             ))}
+          {size > 0 && size >= limit && (
+            <button onClick={loadMore} className='btn shop__btn'>
+              Load more
+            </button>
+          )}
         </section>
       </div>
     </div>
