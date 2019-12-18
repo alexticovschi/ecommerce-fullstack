@@ -2,7 +2,7 @@ import { API } from './config';
 
 export const getProducts = async sortBy => {
   const response = await fetch(
-    `${API}/products?sortBy=${sortBy}&order=desc&limit=9`,
+    `${API}/products?sortBy=${sortBy}&order=desc&limit=12`,
     {
       method: 'GET'
     }
