@@ -1,0 +1,29 @@
+form {
+  grid-column: center-start / center-end;
+  padding: 4rem 0;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+select,
+input,
+button {
+  padding: .8rem .6rem;
+}
+
+input {
+  width: 40vw;
+}
+
+.btn {
+  background-color: #b62a2a;
+  color: #fff;
+  border: none;
+  height: 3.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
