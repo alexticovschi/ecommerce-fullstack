@@ -4,6 +4,7 @@ import SignUp from './user/SignUp';
 import SignIn from './user/SignIn';
 import Home from './components/Home/Home';
 import Shop from './components/Shop/Shop';
+import Product from './components/Product/Product';
 import Layout from './components/Layout/Layout';
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
@@ -21,6 +22,7 @@ const routes = () => {
           <Route path='/signin' exact component={SignIn} />
           <Route path='/shop' exact component={Shop} />
           <Route path='/' exact component={Home} />
+          <Route path='/product/:id' exact component={Product} />
           <PrivateRoute path='/user/account' exact component={Account} />
           <AdminRoute
             path='/admin/dashboard'

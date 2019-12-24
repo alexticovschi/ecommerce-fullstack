@@ -1,6 +1,14 @@
 import { API } from './config';
 import queryString from 'query-string';
 
+export const getProductById = productId => {
+  return fetch(`${API}/product/${productId}`, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .catch(error => console.error(error));
+};
+
 export const getProducts = async sortBy => {
   const response = await fetch(
     `${API}/products?sortBy=${sortBy}&order=desc&limit=12`,
