@@ -44,9 +44,8 @@ const Home = () => {
 
   return (
     <>
-      <div className='container'>
-        <Search />
-      </div>
+      <Search />
+
       <div className='container'>
         <section className='home-section'>
           <div>
