@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { getProductById } from '../../api';
+import { getProductById, getRelatedProducts } from '../../api';
 import ProductImage from '../ProductImage/ProductImage';
+import Card from '../Card/Card';
 
 import './product.scss';
 
 const Product = props => {
   const [product, setProduct] = useState({});
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [error, setError] = useState(false);
 
   const loadProduct = productId => {
     getProductById(productId).then(data => {
       if (data.error) {
-        setError(error);
+        setError(data.error);
       } else {
         setProduct(data);
+
+        // Fetch related products
+        getRelatedProducts(productId).then(data => {
+          if (data.error) {
+            setError(data.error);
+          } else {
+            setRelatedProducts(data);
+          }
+        });
       }
     });
   };
@@ -21,9 +32,7 @@ const Product = props => {
   useEffect(() => {
     const productId = props.match.params.id;
     loadProduct(productId);
-  }, []);
-
-  console.log(product);
+  }, [props]);
 
   return (
     <div className='container'>
@@ -44,6 +53,23 @@ const Product = props => {
           </div>
 
           <button className='btn product__btn'>Add to cart</button>
+        </div>
+      </section>
+
+      <section className='related'>
+        <h2 className='related__title'>Related Products</h2>
+
+        <div className='related__products'>
+          {relatedProducts &&
+            relatedProducts.map(product => (
+              <Card
+                id={product._id}
+                key={product._id}
+                productName={product.name}
+                description={product.description}
+                price={product.price}
+              />
+            ))}
         </div>
       </section>
     </div>

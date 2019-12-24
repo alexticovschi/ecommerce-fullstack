@@ -9,6 +9,14 @@ export const getProductById = productId => {
     .catch(error => console.error(error));
 };
 
+export const getRelatedProducts = productId => {
+  return fetch(`${API}/products/related/${productId}`, {
+    method: 'GET'
+  })
+    .then(response => response.json())
+    .catch(error => console.error(error));
+};
+
 export const getProducts = async sortBy => {
   const response = await fetch(
     `${API}/products?sortBy=${sortBy}&order=desc&limit=12`,
