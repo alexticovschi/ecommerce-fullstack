@@ -54,13 +54,7 @@ const Home = () => {
             <div className='home-section__best-sellers'>
               {soldProducts &&
                 soldProducts.map(product => (
-                  <Card
-                    id={product._id}
-                    key={product._id}
-                    productName={product.name}
-                    description={product.description}
-                    price={product.price}
-                  />
+                  <Card key={product._id} product={product} />
                 ))}
             </div>
           </div>
@@ -70,12 +64,7 @@ const Home = () => {
             <div className='home-section__new-products'>
               {newProducts &&
                 newProducts.map(product => (
-                  <Card
-                    id={product._id}
-                    key={product._id}
-                    productName={product.name}
-                    price={product.price}
-                  />
+                  <Card key={product._id} product={product} />
                 ))}
             </div>
           </div>
