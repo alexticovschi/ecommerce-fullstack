@@ -24,3 +24,11 @@ export const addItem = item => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 };
+
+export const totalItems = () => {
+  if (typeof window !== undefined) {
+    if (localStorage.getItem('cart')) {
+      return JSON.parse(localStorage.getItem('cart')).length;
+    }
+  }
+};

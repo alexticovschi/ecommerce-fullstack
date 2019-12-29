@@ -4,6 +4,8 @@ import { signOutUser, isAuthenticated } from '../../../auth';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import './Toolbar.scss';
 
+import { totalItems } from '../../../cartHelpers';
+
 const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
   <header className='toolbar'>
     <div className='toolbar-wrapper'>
@@ -21,6 +23,12 @@ const Toolbar = ({ isOpen, drawerClickHandler, history }) => (
             </li>
             <li>
               <Link to='/shop'>Shop</Link>
+            </li>
+            <li>
+              <Link to='/cart'>Cart</Link>
+              <sup>
+                <small className='cart-badge'>{totalItems()}</small>
+              </sup>
             </li>
             {!isAuthenticated() && (
               <>
