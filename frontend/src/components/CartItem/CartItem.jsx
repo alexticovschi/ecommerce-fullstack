@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductImage from '../ProductImage/ProductImage';
-import { updateProductQuantity } from '../../cartHelpers';
 
 import './cartItem.scss';
 
-const CartItem = ({ item }) => {
+const CartItem = ({
+  item,
+  updateProductQuantity,
+  removeProductAndUpdateState
+}) => {
   const [count, setCount] = useState(item.count);
   const { _id, name, description, price } = item;
 
@@ -41,7 +44,12 @@ const CartItem = ({ item }) => {
       <div className='cart-item__quantity'>
         <input type='number' value={count} onChange={handleChange(item._id)} />
       </div>
-      <button className='cart-item__btn'>Remove</button>
+      <button
+        onClick={() => removeProductAndUpdateState(item._id)}
+        className='cart-item__btn'
+      >
+        Remove
+      </button>
     </div>
   );
 };
