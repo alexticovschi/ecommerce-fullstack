@@ -4,7 +4,6 @@ import ProductImage from '../ProductImage/ProductImage';
 import { addItem } from '../../cartHelpers';
 
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './card.scss';
 
 const Card = ({ product }) => {

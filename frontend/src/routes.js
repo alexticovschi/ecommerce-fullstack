@@ -13,7 +13,9 @@ import Account from './user/Account';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import AddCategory from './admin/AddCategory/AddCategory';
 import AddProduct from './admin/AddProduct/AddProduct';
+
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const routes = () => {
   return (

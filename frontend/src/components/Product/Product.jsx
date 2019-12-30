@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getProductById, getRelatedProducts } from '../../api';
 import ProductImage from '../ProductImage/ProductImage';
 import Card from '../Card/Card';
+import { addItem } from '../../cartHelpers';
+import { toast } from 'react-toastify';
 
 import './product.scss';
 
@@ -9,6 +11,20 @@ const Product = props => {
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [error, setError] = useState(false);
+
+  const notify = () =>
+    toast(<h3 className='card__toast'>Added to Cart</h3>, {
+      type: toast.TYPE.SUCCESS,
+      position: toast.POSITION.BOTTOM_RIGHT,
+      autoClose: 2000,
+      closeButton: false,
+      hideProgressBar: true
+    });
+
+  const addToCart = () => {
+    addItem(product);
+    notify();
+  };
 
   const loadProduct = productId => {
     getProductById(productId).then(data => {
@@ -52,7 +68,9 @@ const Product = props => {
             <p className='product__description-text'>{product.description}</p>
           </div>
 
-          <button className='btn product__btn'>Add to cart</button>
+          <button onClick={addToCart} className='btn product__btn'>
+            Add to cart
+          </button>
         </div>
       </section>
 
