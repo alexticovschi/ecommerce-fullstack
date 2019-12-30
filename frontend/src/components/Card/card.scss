@@ -14,6 +14,11 @@
         grid-row-gap: 1rem;
     }
 
+    &__toast {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
     &__img {
         width: 100%;
         min-height: 25rem;

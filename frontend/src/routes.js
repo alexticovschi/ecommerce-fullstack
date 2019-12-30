@@ -13,6 +13,7 @@ import Account from './user/Account';
 import AdminDashboard from './admin/AdminDashboard/AdminDashboard';
 import AddCategory from './admin/AddCategory/AddCategory';
 import AddProduct from './admin/AddProduct/AddProduct';
+import { ToastContainer } from 'react-toastify';
 
 const routes = () => {
   return (
@@ -33,6 +34,7 @@ const routes = () => {
           />
           <AdminRoute path='/create/category' exact component={AddCategory} />
           <AdminRoute path='/create/product' exact component={AddProduct} />
+          <ToastContainer />
         </Layout>
       </Switch>
     </BrowserRouter>
