@@ -19,7 +19,7 @@ const Cart = () => {
 
       <section className='cart'>
         {items.map(item => (
-          <CartItem item={item} />
+          <CartItem key={item._id} item={item} />
         ))}
       </section>
     </div>

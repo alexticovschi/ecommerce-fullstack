@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductImage from '../ProductImage/ProductImage';
+import { updateProductQuantity } from '../../cartHelpers';
 
 import './cartItem.scss';
 
 const CartItem = ({ item }) => {
+  const [count, setCount] = useState(item.count);
   const { _id, name, description, price } = item;
 
   const shorten = (str, maxLen, separator = ' ') => {
     if (str.length <= maxLen) return str;
     return str.substr(0, str.lastIndexOf(separator, maxLen));
   };
+
+  const handleChange = productId => event => {
+    setCount(event.target.value < 1 ? 1 : event.target.value);
+    if (event.target.value >= 1) {
+      updateProductQuantity(productId, event.target.value);
+    }
+  };
+
   return (
     <div className='cart-item'>
       <Link to={`/product/${_id}`}>
@@ -28,8 +38,8 @@ const CartItem = ({ item }) => {
         </p>
       </div>
       <div className='cart-item__price'>&pound;{price}</div>
-      <div class='cart-item__quantity'>
-        <input type='number' value={1} min='1' />
+      <div className='cart-item__quantity'>
+        <input type='number' value={count} onChange={handleChange(item._id)} />
       </div>
       <button className='cart-item__btn'>Remove</button>
     </div>
