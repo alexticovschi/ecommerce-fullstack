@@ -1,0 +1,17 @@
+.cart {
+  grid-column: center-start / center-end;
+  margin-bottom: 8rem;
+
+  display: grid;
+
+  grid-row-gap: 4rem;
+
+  &__title {
+    grid-column: center-start / center-end;
+    margin-top: 8rem;
+    font-size: 2.5rem;
+    padding: 1em 0;
+    border-top: 1px solid #D0D0D0;
+    border-bottom: 1px solid #D0D0D0;
+  }
+}
