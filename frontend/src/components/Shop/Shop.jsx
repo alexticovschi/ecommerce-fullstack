@@ -130,12 +130,7 @@ const Shop = () => {
         <section className='shop-section'>
           {filteredData &&
             filteredData.map(product => (
-              <Card
-                id={product._id}
-                key={product._id}
-                productName={product.name}
-                price={product.price}
-              />
+              <Card key={product._id} product={product} />
             ))}
           {size > 0 && size >= limit && (
             <button onClick={loadMore} className='btn shop__btn'>

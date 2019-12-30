@@ -62,13 +62,7 @@ const Product = props => {
         <div className='related__products'>
           {relatedProducts &&
             relatedProducts.map(product => (
-              <Card
-                id={product._id}
-                key={product._id}
-                productName={product.name}
-                description={product.description}
-                price={product.price}
-              />
+              <Card key={product._id} product={product} />
             ))}
         </div>
       </section>
