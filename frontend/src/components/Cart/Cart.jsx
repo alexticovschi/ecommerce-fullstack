@@ -5,6 +5,7 @@ import {
   removeProduct
 } from '../../cartHelpers';
 import CartItem from '../CartItem/CartItem';
+import Checkout from '../Checkout/Checkout';
 
 import './cart.scss';
 
@@ -26,6 +27,8 @@ const Cart = () => {
     setItems(currentCart);
   };
 
+  const handleItemCountChange = () => setItems(getCartItems());
+
   return (
     <div className='container'>
       <h1 className='cart__title'>Shopping Cart</h1>
@@ -34,6 +37,7 @@ const Cart = () => {
         {items &&
           items.map(item => (
             <CartItem
+              handleItemCountChange={handleItemCountChange}
               updateProductQuantity={updateProductQuantity}
               removeProductAndUpdateState={handleQuantityChange}
               key={item._id}
@@ -41,6 +45,8 @@ const Cart = () => {
             />
           ))}
       </section>
+
+      <Checkout products={items} />
     </div>
   );
 };

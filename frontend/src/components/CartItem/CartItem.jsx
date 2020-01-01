@@ -7,7 +7,8 @@ import './cartItem.scss';
 const CartItem = ({
   item,
   updateProductQuantity,
-  removeProductAndUpdateState
+  removeProductAndUpdateState,
+  handleItemCountChange
 }) => {
   const [count, setCount] = useState(item.count);
   const { _id, name, description, price } = item;
@@ -19,9 +20,12 @@ const CartItem = ({
 
   const handleChange = productId => event => {
     setCount(event.target.value < 1 ? 1 : event.target.value);
+
     if (event.target.value >= 1) {
       updateProductQuantity(productId, event.target.value);
     }
+
+    handleItemCountChange();
   };
 
   return (
