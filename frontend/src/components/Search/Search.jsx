@@ -86,13 +86,7 @@ const Search = () => {
             <div className='search__results'>
               {results &&
                 results.map(product => (
-                  <Card
-                    id={product._id}
-                    key={product._id}
-                    productName={product.name}
-                    description={product.description}
-                    price={product.price}
-                  />
+                  <Card product={product} key={product._id} />
                 ))}
             </div>
           </div>
