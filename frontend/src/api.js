@@ -1,6 +1,19 @@
 import { API } from './config';
 import queryString from 'query-string';
 
+export const getBraintreeClientToken = (userId, token) => {
+  return fetch(`${API}/braintree/getToken/${userId}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then(response => response.json())
+    .catch(error => console.error(error));
+};
+
 export const getProductById = productId => {
   return fetch(`${API}/product/${productId}`, {
     method: 'GET'
