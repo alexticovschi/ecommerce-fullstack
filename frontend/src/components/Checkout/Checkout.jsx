@@ -38,6 +38,24 @@ const Checkout = ({ products }) => {
     }, 0);
   };
 
+  const buy = () => {
+    let nonce;
+    let getNonce = data.instance
+      .requestPaymentMethod()
+      .then(data => {
+        console.log(data);
+        nonce = data.nonce;
+
+        // once you have data (card type, card number) send nonce  as 'paymentMethodNonce'
+        // and also the total to be charged
+        console.log('to be processed', nonce, calculateTotal(products));
+      })
+      .catch(error => {
+        console.error('Dropin error: ', error);
+        setData({ ...data, error: error.message });
+      });
+  };
+
   return (
     <>
       <section className='checkout'>
@@ -48,15 +66,24 @@ const Checkout = ({ products }) => {
               &pound;{calculateTotal()}
             </span>
           </h2>
+          {data.error ? (
+            <div className='checkout__error'>{data.error}</div>
+          ) : null}
+
           {isAuthenticated() ? (
             <>
               {data.clientToken !== null && products.length > 0 ? (
-                <div className='checkout__braintree'>
+                <div
+                  onBlur={() => setData({ ...data, error: '' })}
+                  className='checkout__braintree'
+                >
                   <DropIn
                     options={{ authorization: data.clientToken }}
                     onInstance={instance => (data.instance = instance)}
                   />
-                  <button className='checkout__btn'>Checkout</button>
+                  <button onClick={buy} className='checkout__btn'>
+                    Checkout
+                  </button>
                 </div>
               ) : null}
             </>
