@@ -46,7 +46,10 @@ const Cart = () => {
           ))}
       </section>
 
-      <Checkout products={items} />
+      <Checkout
+        handleItemCountChange={handleItemCountChange}
+        products={items}
+      />
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../../auth';
 import { getBraintreeClientToken, processPayment } from '../../api';
+import { emptyCart } from '../../cartHelpers';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
 
 import './Checkout.scss';
 
-const Checkout = ({ products }) => {
+const Checkout = ({ products, handleItemCountChange }) => {
   const [payment, setPayment] = useState({
     success: false,
     clientToken: null,
@@ -58,6 +59,10 @@ const Checkout = ({ products }) => {
           .then(response => {
             setPayment({ ...payment, success: response.success });
             // empty cart
+            emptyCart(() => {
+              handleItemCountChange();
+              console.log('Payment Successfull');
+            });
             // create order
           })
           .catch(error => console.error(error));
