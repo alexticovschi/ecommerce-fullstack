@@ -14,6 +14,20 @@ export const getBraintreeClientToken = (userId, token) => {
     .catch(error => console.error(error));
 };
 
+export const processPayment = (userId, token, paymentData) => {
+  return fetch(`${API}/braintree/payment/${userId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(paymentData)
+  })
+    .then(response => response.json())
+    .catch(error => console.error(error));
+};
+
 export const getProductById = productId => {
   return fetch(`${API}/product/${productId}`, {
     method: 'GET'

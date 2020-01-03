@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../../auth';
-import { getBraintreeClientToken } from '../../api';
+import { getBraintreeClientToken, processPayment } from '../../api';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
+
 import './Checkout.scss';
 
 const Checkout = ({ products }) => {
-  const [data, setData] = useState({
+  const [payment, setPayment] = useState({
     success: false,
     clientToken: null,
     error: '',
@@ -19,11 +20,11 @@ const Checkout = ({ products }) => {
 
   const getToken = (userId, token) => {
     getBraintreeClientToken(userId, token).then(data => {
-      console.log(data);
+      // console.log(data);
       if (data.error) {
-        setData({ ...data, error: data.error });
+        setPayment({ ...payment, error: data.error });
       } else {
-        setData({ ...data, clientToken: data.clientToken });
+        setPayment({ ...payment, clientToken: data.clientToken });
       }
     });
   };
@@ -40,19 +41,30 @@ const Checkout = ({ products }) => {
 
   const buy = () => {
     let nonce;
-    let getNonce = data.instance
+    let getNonce = payment.instance
       .requestPaymentMethod()
       .then(data => {
-        console.log(data);
+        // console.log(data);
         nonce = data.nonce;
 
-        // once you have data (card type, card number) send nonce  as 'paymentMethodNonce'
+        // once you have data (card type, card number) send nonce as 'paymentMethodNonce'
         // and also the total to be charged
-        console.log('to be processed', nonce, calculateTotal(products));
+        const paymentData = {
+          paymentMethodNonce: nonce,
+          amount: calculateTotal(products)
+        };
+
+        processPayment(userId, token, paymentData)
+          .then(response => {
+            setPayment({ ...payment, success: response.success });
+            // empty cart
+            // create order
+          })
+          .catch(error => console.error(error));
       })
       .catch(error => {
         console.error('Dropin error: ', error);
-        setData({ ...data, error: error.message });
+        setPayment({ ...payment, error: error.message });
       });
   };
 
@@ -66,23 +78,23 @@ const Checkout = ({ products }) => {
               &pound;{calculateTotal()}
             </span>
           </h2>
-          {data.error ? (
-            <div className='checkout__error'>{data.error}</div>
+          {payment.error ? (
+            <div className='checkout__error'>{payment.error}</div>
           ) : null}
 
           {isAuthenticated() ? (
             <>
-              {data.clientToken !== null && products.length > 0 ? (
+              {payment.clientToken !== null && products.length > 0 ? (
                 <div
-                  onBlur={() => setData({ ...data, error: '' })}
+                  onBlur={() => setPayment({ ...payment, error: '' })}
                   className='checkout__braintree'
                 >
                   <DropIn
-                    options={{ authorization: data.clientToken }}
-                    onInstance={instance => (data.instance = instance)}
+                    options={{ authorization: payment.clientToken }}
+                    onInstance={instance => (payment.instance = instance)}
                   />
                   <button onClick={buy} className='checkout__btn'>
-                    Checkout
+                    Pay
                   </button>
                 </div>
               ) : null}
