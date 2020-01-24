@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../../auth';
-import { getBraintreeClientToken, processPayment } from '../../api';
+import {
+  getBraintreeClientToken,
+  processPayment,
+  createOrder
+} from '../../api';
 import { emptyCart } from '../../cartHelpers';
 import { Link } from 'react-router-dom';
 import DropIn from 'braintree-web-drop-in-react';
@@ -40,6 +44,11 @@ const Checkout = ({ products, handleItemCountChange }) => {
     }, 0);
   };
 
+  const handleAddress = event => {
+    setPayment({ ...payment, address: event.target.value });
+    console.log(payment.address);
+  };
+
   const buy = () => {
     let nonce;
     let getNonce = payment.instance
@@ -57,13 +66,24 @@ const Checkout = ({ products, handleItemCountChange }) => {
 
         processPayment(userId, token, paymentData)
           .then(response => {
+            console.log(response);
             setPayment({ ...payment, success: response.success });
+
+            // create order
+            const createOrderData = {
+              products: products,
+              transaction_id: response.transaction._id,
+              amount: response.transaction.amount,
+              address: payment.address
+            };
+
+            createOrder(userId, token, createOrderData);
+
             // empty cart
             emptyCart(() => {
               handleItemCountChange();
               console.log('Payment Successfull');
             });
-            // create order
           })
           .catch(error => console.error(error));
       })
@@ -94,6 +114,8 @@ const Checkout = ({ products, handleItemCountChange }) => {
                   onBlur={() => setPayment({ ...payment, error: '' })}
                   className='checkout__braintree'
                 >
+                  <label htmlFor='address'>Address</label>
+                  <input onChange={handleAddress} type='text' name='address' />
                   <DropIn
                     options={{ authorization: payment.clientToken }}
                     onInstance={instance => (payment.instance = instance)}
